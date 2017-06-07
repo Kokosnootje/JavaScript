@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang = 'nl'>
+<head>
+	<meta charset = "UTF-8">
+	<title>
+		Stoplichten JavaScript
+	</title>
+</head>
+<body background = "./verkeer/kruising.png">
+	<form>
+		<h1>
+			Kruising 1
+		</h1>
+		<p>
+			Compleete kruising met rijdende auto's
+		</p>
+		<p>
+			Druk op de juiste knop
+		</p>
+		<input type = "button" value = "Aanzetten" onclick = "aanzetten()">
+		<input type = "button" value = "Knipperen" onclick = "knipperen()">
+		<input type = "button" value = "Uitzetten" onclick = "uitzetten()"><br>
+		<input type = "button" value = "Links/Rechts Rood" onclick = "maakLinksRechtsRood()">
+		<input type = "button" value = "Boven/Onder Rood" onclick = "maakBovenOnderRood()"><br>
+		<input type = "button" value = "Links/Rechts Oranje" onclick = "maakLinksRechtsOranje()">
+		<input type = "button" value = "Boven/Onder Oranje" onclick = "maakBovenOnderOranje()"><br>
+		<input type = "button" value = "Links/Rechts Groen" onclick = "maakLinksRechtsGroen()">
+		<input type = "button" value = "Boven/Onder Groen" onclick = "maakBovenOnderGroen()"><br>
+		<img id = "stoplicht1" src = "./verkeer/stoplichtuit1.png" width = "40px" height = "60px">
+		<img id = "stoplicht2" src = "./verkeer/stoplichtuit2.png" width = "60px" height = "40px">
+		<img id = "stoplicht3" src = "./verkeer/stoplichtuit3.png" width = "60px" height = "40px">
+		<img id = "stoplicht4" src = "./verkeer/stoplichtuit4.png" width = "40px" height = "60px">
+		<p>
+			Druk op de knop om te rijden
+		</p>
+		<input type = "button" value = "Sneller" onclick = "starten()">
+		<input type = "button" value = "Langzamer" onclick = "langzamer()">
+		<input type = "button" value = "Reset Posities" onclick = "opnieuw()">
+		
+		<img id = "autorood" src = "./verkeer/autorood.png" width = "80px" height = "40px">
+		<img id = "autogeel" src = "./verkeer/autogeel.png" width = "80px" height = "40px">
+		<img id = "autogrijs" src = "./verkeer/autogrijs.png" width = "40px" height = "80px">
+		<img id = "autoaqua" src = "./verkeer/autoaqua.png" width = "40px" height = "80px">
+	</form>
+	<script type = "text/javascript">
+		var werken;
+		var buitenwerking;
+		var vooruit;
+		var slir_lr = false;
+		var stoplicht1 = document.getElementById("stoplicht1");
+		stoplicht1.style.position = "absolute";
+		stoplicht1.style.left = "1000px";
+		stoplicht1.style.top = "650px";
+		var stoplicht2 = document.getElementById("stoplicht2");
+		stoplicht2.style.position = "absolute";
+		stoplicht2.style.left = "725px";
+		stoplicht2.style.top = "650px";
+		var stoplicht3 = document.getElementById("stoplicht3");
+		stoplicht3.style.position = "absolute";
+		stoplicht3.style.left = "1000px";
+		stoplicht3.style.top = "375px";
+		var stoplicht4 = document.getElementById("stoplicht4");
+		stoplicht4.style.position = "absolute";
+		stoplicht4.style.left = "740px";
+		stoplicht4.style.top = "365px";
+		
+		var autorood = document.getElementById("autorood");
+		autorood.style.position = "absolute";
+		autorood.style.left = "300px";
+		autorood.style.top = "600px";
+		var autogeel = document.getElementById("autogeel");
+		autogeel.style.position = "absolute";
+		autogeel.style.left = "1400px";
+		autogeel.style.top = "450px";
+		var autogrijs = document.getElementById("autogrijs");
+		autogrijs.style.position = "absolute";
+		autogrijs.style.left = "900px";
+		autogrijs.style.top = "750px";
+		var autoaqua = document.getElementById("autoaqua");
+		autoaqua.style.position = "absolute";
+		autoaqua.style.left = "800px";
+		autoaqua.style.top = "50px";
+		var y_autorood = autorood.style.left;
+		var y_autogeel = autogeel.style.left;
+		var x_autogrijs = autogrijs.style.top;
+		var x_autoaqua = autoaqua.style.top;
+		
+		function aanzetten()
+		{
+			clearTimeout(buitenwerking);
+			maakLinksRechtsRood();
+			maakBovenOnderGroen();
+			werken = setTimeout(maakLinksRechtsGroen, 6000);
+			werken = setTimeout(maakBovenOnderOranje, 4000);
+			werken = setTimeout(maakLinksRechtsOranje, 10000);
+			werken = setTimeout(maakBovenOnderRood, 6000);
+			werken = setTimeout(aanzetten, 12000);
+		}
+		function knipperen()
+		{
+			clearTimeout(werken);
+			maakLinksRechtsOranje();
+			maakBovenOnderOranje();
+			buitenwerking = setTimeout(zetUit, 500);
+			buitenwerking = setTimeout(knipperen, 1000);
+		}
+		function uitzetten()
+		{
+			zetUit();
+			clearTimeout(buitenwerking);
+			clearTimeout(werken);
+		}
+		
+		function maakLinksRechtsRood()
+		{
+			slir_lr = true;
+			stoplicht2.src = "./verkeer/stoplichtrood2.png";
+			stoplicht3.src = "./verkeer/stoplichtrood3.png";
+		}
+		function maakBovenOnderRood()
+		{
+			slir_bo = true;
+			stoplicht1.src = "./verkeer/stoplichtrood1.png";
+			stoplicht4.src = "./verkeer/stoplichtrood4.png";
+		}
+		function maakLinksRechtsOranje()
+		{
+			slir_lr = true;
+			stoplicht2.src = "./verkeer/stoplichtoranje2.png";
+			stoplicht3.src = "./verkeer/stoplichtoranje3.png";
+		}
+		function maakBovenOnderOranje()
+		{
+			slir_bo = true;
+			stoplicht1.src = "./verkeer/stoplichtoranje1.png";
+			stoplicht4.src = "./verkeer/stoplichtoranje4.png";
+		}
+		function maakLinksRechtsGroen()
+		{
+			slir_lr = false;
+			stoplicht2.src = "./verkeer/stoplichtgroen2.png";
+			stoplicht3.src = "./verkeer/stoplichtgroen3.png";
+		}
+		function maakBovenOnderGroen()
+		{
+			slir_bo = false;
+			stoplicht1.src = "./verkeer/stoplichtgroen1.png";
+			stoplicht4.src = "./verkeer/stoplichtgroen4.png";
+		}
+		function zetUit()
+		{
+			slir_lr = false;
+			slir_bo = false;
+			stoplicht1.src = "./verkeer/stoplichtuit1.png";
+			stoplicht2.src = "./verkeer/stoplichtuit2.png";
+			stoplicht3.src = "./verkeer/stoplichtuit3.png";
+			stoplicht4.src = "./verkeer/stoplichtuit4.png";
+		}
+		function starten()
+		{
+			y_autorood = autorood.style.left;
+			y_autogeel = autogeel.style.left;
+			x_autogrijs = autogrijs.style.top;
+			x_autoaqua = autoaqua.style.top;
+			if(slir_lr == true && y_autorood == 650 + "px")
+			{
+				snelheid_autorood = 0;
+			}
+			else
+			{
+				snelheid_autorood = 5;
+			}
+			if(slir_lr == true && y_autogeel == 1000 + "px")
+			{
+				snelheid_autogeel = 0;
+			}
+			else
+			{
+				snelheid_autogeel = 5;
+			}
+			if(slir_bo == true && x_autogrijs == 700 + "px")
+			{
+				snelheid_autogrijs = 0;
+			}
+			else
+			{
+				snelheid_autogrijs = 5;
+			}
+			if(slir_bo == true && x_autoaqua == 300 + "px")
+			{
+				snelheid_autoaqua = 0;
+			}
+			else
+			{
+				snelheid_autoaqua = 5;
+			}
+			sneller();
+			vooruit = setTimeout(sneller, 20)
+			vooruit = setTimeout(starten, 40)
+		}
+		function langzamer()
+		{
+			clearTimeout(vooruit);
+		}
+		function sneller()
+		{
+			if(parseInt(autorood.style.left) > 1655)
+			{
+				autorood.style.left = "-80px";
+			}
+			autorood.style.left = parseInt(autorood.style.left) + snelheid_autorood + "px";
+			if(parseInt(autogeel.style.left) < -80)
+			{
+				autogeel.style.left = "1655px";
+			}
+			autogeel.style.left = parseInt(autogeel.style.left) - snelheid_autogeel + "px";
+			if(parseInt(autogrijs.style.top) < -80)
+			{
+				autogrijs.style.top = "840px";
+			}
+			autogrijs.style.top = parseInt(autogrijs.style.top) - snelheid_autogrijs + "px";
+			if(parseInt(autoaqua.style.top) > 850)
+			{
+				autoaqua.style.top = "-80px";
+			}
+			autoaqua.style.top = parseInt(autoaqua.style.top) + snelheid_autoaqua + "px";
+		}
+		function opnieuw()
+		{
+			autorood.style.left = "300px";
+			autogeel.style.left = "1400px";
+			autogrijs.style.top = "750px";
+			autoaqua.style.top = "50px";
+		}
+		
+	</script>
+</body>
+</html>
